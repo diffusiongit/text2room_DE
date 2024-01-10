@@ -38,11 +38,11 @@ def load_sd_inpaint(args):
     if not os.path.exists(model_path):
         model_path = "stabilityai/stable-diffusion-2-inpainting"
     pipe = StableDiffusionInpaintPipeline.from_pretrained(model_path, torch_dtype=torch.float16).to(args.device)
-
+    """
     pipe.set_progress_bar_config(**{
         "leave": False,
         "desc": "Generating Next Image"
-    })
+    })"""
 
     pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 
@@ -63,11 +63,11 @@ def generate_first_image(args):
     pipe = StableDiffusionPipeline.from_pretrained(model_path, torch_dtype=torch.float16)
     pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
     pipe = pipe.to(args.device)
-
+    """
     pipe.set_progress_bar_config(**{
         "leave": False,
         "desc": "Generating Start Image"
-    })
+    })"""
 
     return pipe(args.prompt).images[0]
 
